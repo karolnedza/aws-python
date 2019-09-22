@@ -1,8 +1,9 @@
 import boto3
 
-#regions = boto3.session.Session().get_available_regions('ec2')
+# Get All Regions 
+regions = boto3.session.Session().get_available_regions('ec2')
 
-regions = ['eu-central-1']
+# List instances
 def list_instances(i):
     "List EC2 instances"
     ec2 = boto3.session.Session(region_name= i ).resource('ec2')
@@ -14,7 +15,7 @@ def list_instances(i):
             i.state['Name'],
             i.public_dns_name)))
 
-
+# Stop instances
 def stop_instances(i):
     "Stop EC2 instances"
     ec2 = boto3.session.Session(region_name= i ).resource('ec2')
@@ -23,15 +24,15 @@ def stop_instances(i):
         ec2.instances.stop()
 
 
-# TO STOP INSTANCES REMOVE COMMENT #
-
 for i in regions:
     print('List of all EC2 instances')
     list_instances(i)
 
     print('*****************************')
+    
     print('Stopping all running EC2 instances')
-    # stop_instances(i)    # TO STOP INSTANCES REMOVE COMMENT
+    # TO STOP INSTANCES REMOVE COMMENT
+    # stop_instances(i)
 
     print('*****************************')
     print('List of all EC2 instances')
